@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{siunitx}
+
+\title{PS7 Felkner}
+\author{Beth Felkner}
+\date{March 2024}
+
+\begin{document}
+
+\maketitle
+
+\section{Data Summary of wages.csv}
+
+\begin{table}[H]
+\centering
+\begin{tabular}[t]{lrrrrrrr}
+\toprule
+  & Unique & Missing Pct. & Mean & SD & Min & Median & Max\\
+\midrule
+logwage & 670 & 25 & \num{1.6} & \num{0.4} & \num{0.0} & \num{1.7} & \num{2.3}\\
+hgc & 16 & 0 & \num{13.1} & \num{2.5} & \num{0.0} & \num{12.0} & \num{18.0}\\
+tenure & 259 & 0 & \num{6.0} & \num{5.5} & \num{0.0} & \num{3.8} & \num{25.9}\\
+age & 13 & 0 & \num{39.2} & \num{3.1} & \num{34.0} & \num{39.0} & \num{46.0}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+25 percent of logwage observations are missing. I think the logwage variable is most likely to be MNAR. We know it can't be MCAR because that doesn't really exist in organically observed data (it could only really exist in a lab experiment type setting.) For it to be MAR, the missing logwages would need to be completely explained by the other variables we have such as education. This is not likely to be the case. Much more likely is that wages are missing because some people did not want to report their wages (likely low wages) which would be a case of MNAR.
+
+\section{Modelsummary with all four regressions}
+\begin{table}[H]
+\centering
+\begin{tabular}[t]{lcccc}
+\toprule
+  & Complete Cases & Mean Imp & Complete Imp & Mice\\
+\midrule
+(Intercept) & \num{0.639}*** & \num{0.833}*** & \num{0.639}*** & \num{0.725}***\\
+ & (\num{0.146}) & (\num{0.115}) & (\num{0.111}) & (\num{0.129})\\
+hgc & \num{0.062}*** & \num{0.049}*** & \num{0.062}*** & \num{0.059}***\\
+ & (\num{0.005}) & (\num{0.004}) & (\num{0.004}) & (\num{0.005})\\
+collegenot college grad & \num{0.146}*** & \num{0.160}*** & \num{0.146}*** & \num{0.101}**\\
+ & (\num{0.035}) & (\num{0.026}) & (\num{0.025}) & (\num{0.031})\\
+tenure & \num{0.023}*** & \num{0.015}*** & \num{0.023}*** & \num{0.023}***\\
+ & (\num{0.002}) & (\num{0.001}) & (\num{0.001}) & (\num{0.002})\\
+age & \num{-0.001} & \num{-0.001} & \num{-0.001} & \num{-0.001}\\
+ & (\num{0.003}) & (\num{0.002}) & (\num{0.002}) & (\num{0.002})\\
+marriedsingle & \num{-0.024} & \num{-0.029}* & \num{-0.024}+ & \num{-0.018}\\
+ & (\num{0.018}) & (\num{0.014}) & (\num{0.013}) & (\num{0.016})\\
+\midrule
+Num.Obs. & \num{1669} & \num{2229} & \num{2229} & \\
+R2 & \num{0.195} & \num{0.132} & \num{0.268} & \\
+R2 Adj. & \num{0.192} & \num{0.130} & \num{0.266} & \\
+AIC & \num{1206.1} & \num{1129.3} & \num{961.2} & \\
+BIC & \num{1244.0} & \num{1169.3} & \num{1001.1} & \\
+Log.Lik. & \num{-596.049} & \num{-557.651} & \num{-473.584} & \\
+F & \num{80.508} & \num{67.496} & \num{162.884} & \\
+RMSE & \num{0.35} & \num{0.31} & \num{0.30} & \\
+\bottomrule
+\multicolumn{5}{l}{\rule{0pt}{1em}+ p $<$ 0.1, * p $<$ 0.05, ** p $<$ 0.01, *** p $<$ 0.001}\\
+\end{tabular}
+\end{table}
+
+The Beta1 estimation for complete cases only is 0.062, for mean imputation is 0.049, for imputation with predicted values from the complete cased model is also 0.062, and for multiple imputation regression is 0.059. Interesting, all of the values are significantly lower than the true value of 0.092. The clear pattern I see is that the complete case model and complete case imputation model yield exact the same Beta estimation values (for all Betas not just Beta1). This suggests to me that complete cases and complete case imputation methods have the most veracity, because their Beta estimations are close to the true Beta value. The multiple imputation Beta1 estimation is also close to the true Beta1, but I am suspicious of that method because the Beta2 (college grad) is so far off from the other Beta2 estimations (although I do not know the true Beta2 value so it could actually be the most accurate). 
+
+\section{Progress on my project}
+In full transparency, I have not made very much progress on my project, but this is intentional. My mind is most productive through compartmentalization of tasks which I am aware of, and so my plan is to completely or mostly finish my Masters Research project before diving into the data science project, because they are too similar for me to want to be doing both simultaneously. My Masters Research is coming along well with my data set compiled and clean and the bulk of my models ran, although I need to make some slight changes. My plan/aim is to finish adjusting the models and typing the paper part over sprig break. 
+
+Then when I return from spring break I will begin the data science project in earnest. I have made some incidental progress however, mostly through the problem sets that deal with it. I want to use Baseball Hall of Fame voting, which baseball-reference.com has available for all years (1936-present) in easily scrapable tables. My plan is to scrape each table and then compile them vertically into a train dataset(approximately 75 percent of total observations) and a test dataset(approximately 25 of total observations). I will then use machine learning techniques (not exactly sure what models I want to use but hoping the ML section of our class will help me decide) to predict HoF status in my test dataset. I will adjust it as necessary then once it does well on predicting HoF status in my test dataset, I will apply it to players who will be eligible for the upcoming classes and try to predict who will be inducted in 2025 and perhaps farther forward. Of course I will not know if my predictions are right for at least another year but I think it will be intersting still.
+\end{document}
