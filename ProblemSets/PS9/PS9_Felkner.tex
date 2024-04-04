@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Problem Set 9}
+\author{Beth Felkner}
+\date{April 2024}
+
+\begin{document}
+
+\maketitle
+\section{Dimensions of Training Data}
+The housing train prepped data is 404 rows by 75 columns. It has 61 more variables than the original housing data
+
+\section{LASSO Model}
+\begin{itemize}
+   \item The optimal value of lambda is 0.00139
+   \item The RMSE in-sample is 0.137
+   \item The RMSE out-of-sample is 0.188
+\end{itemize}
+
+\section{Ridge Model}
+\begin{itemize}
+    \item The optimal value of lambda is 0.0373
+    \item The RMSE in-sample is 0.140
+    \item The RMSE out-of-sample is 0.181    
+\end{itemize}
+
+\section{Conceptual Questions}
+
+\begin{itemize}
+    \item I would not be able to estimate a simple linear regression  that had more columns than rows because this violates the rank and order condition, which would lead to the model being over-parameterized.
+    \item Considering the magnitude and range of our MEDV that we are predicting, the RMSE (all of them) seems quite small in comparison which would suggest to me that these models are overfit, and thus have too high of reliance on variance according to the bias-variance tradeoff. In both cases we can see that the RMSE within sample is lower than out of sample, which is to be expected. However, the ridge seems to be slightly less overfit, because the out-of-sample error is lower and the difference between in and out of sample error is also smaller.
+\end{itemize}
+\end{document}
