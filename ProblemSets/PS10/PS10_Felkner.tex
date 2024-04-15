@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
+\title{Problem Set 10}
+\author{Beth Felkner}
+\date{April 2024}
+
+\begin{document}
+\maketitle
+
+\section{Performance Comparison}
+Note that I was not able to get SVM to run, I left it running all night while I was sleeping on Thursday and it was still not done when I woke up on Friday so I think that it was probably not ever going to work on my computer for some reason. So I do not have an estimate for SVM. For KNN, I was only able to get it to run when I decreased the size of the set from 1-30 to 1-10. I would expect that the estimate would be better with a larger set. Comparing what I do have, however, the tree was the best estimate, with 0.868 accuracy. The next best was logit at 0.853 accuracy, then nnet with 0.840 accuracy, and lastly knn with 0.836 accuracy. Again, knn might have ranked better if I had been able to run it with a larger set to try values of the regulization parameter on. 
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}[t]{llllllll}
+\toprule
+penalty & .estimate & alg & \verb|cost_complexity| & \verb|tree_depth| & \verb|min_n| & \verb|hidden_units| & neighbors\\
+\midrule
+0.00 & 0.853 & logit &  &  &  &  & \\
+ & 0.868 & tree & 0.00 & 15.00 & 10.00 &  & \\
+1.00 & 0.840 & nnet &  &  &  & 6.00 & \\
+ & 0.836 & knn &  &  &  &  & 10.00\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+
+
+\end{document}
